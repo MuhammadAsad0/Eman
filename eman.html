@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MCQs for Eman</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #fdfdfd;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .question-box {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 10px;
+      background: #f0f0f0;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .option {
+      background: #fff;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .option.selected {
+      border-color: #4CAF50;
+      background: #e7fbe7;
+    }
+
+    #message {
+      font-size: 20px;
+      margin-top: 20px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="question-box">
+    <h2 id="question">Question 1: Eman tmhae Asad kysa lagta hy?</h2>
+    <div id="options"></div>
+    <button onclick="nextQuestion()">Next</button>
+  </div>
+
+  <div id="message"></div>
+
+  <script>
+    const mcqs = [
+      {
+        question: "Eman tmhae Asad kysa lagta hai?",
+        options: ["Acha", "Buhat Acha", "Masoom", "Bura"]
+      },
+      {
+        question: "Jab hum milenge sabse pehle kya karoge",
+        options: ["Hug karungi", "Bass dekhoungi", "kuch nhi boloungi", "wapis byjh doungi"]
+      },
+      {
+        question: "Abhi tak mile nahi , phr bhi tum",
+        options: ["Dil mein ho", "Har khayal mein ho", "Sab kuch ho", "Kuch bhi nahi ho"]
+      }
+    ];
+
+    let current = 0;
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+
+    function loadQuestion() {
+      const q = mcqs[current];
+      questionEl.textContent = `Question ${current + 1}: ${q.question}`;
+      optionsEl.innerHTML = '';
+
+      q.options.forEach(opt => {
+        const div = document.createElement('div');
+        div.classList.add('option');
+        div.textContent = opt;
+        div.onclick = () => {
+          document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+          div.classList.add('selected');
+        };
+        optionsEl.appendChild(div);
+      });
+    }
+
+    function nextQuestion() {
+      if (current < mcqs.length - 1) {
+        current++;
+        loadQuestion();
+      } else {
+        document.querySelector('.question-box').style.display = 'none';
+        document.getElementById('message').textContent = "Eman tum buhat achi ho ❤️";
+      }
+    }
+
+    // Load first question
+    loadQuestion();
+  </script>
+
+</body>
+</html>
